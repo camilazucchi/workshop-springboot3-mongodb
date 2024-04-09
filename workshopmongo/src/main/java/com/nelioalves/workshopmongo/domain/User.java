@@ -3,6 +3,8 @@ package com.nelioalves.workshopmongo.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,8 +16,10 @@ import java.util.Objects;
 @NoArgsConstructor
 /* A anotação @NoArgsConstructor do Lombok é usada para instruir o Lombok a gerar automaticamente um construtor
  * sem argumentos para uma classe. */
+@Document(collection = "user")
 public class User implements Serializable {
 
+    @Id
     private String id;
     private String name;
     private String email;
