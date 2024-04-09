@@ -6,6 +6,8 @@ target/
 
 ### Sonar ###
 .sonar
+issuestore/
+securityhotspoststore/
 
 ### STS ###
 .apt_generated
