@@ -6,6 +6,7 @@ import com.nelioalves.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,15 @@ public class UserController {
         List<User> users = service.findAll();
         List<UserDTO> userDTOS = users.stream().map(UserDTO::new).toList();
         return ResponseEntity.ok().body(userDTOS);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+        /* A anotação "@PathVariable" é usada para mapear variáveis de uma URL para parâmetros de método em um
+         * controlador. Quando um método de um controlador recebe uma requisição HTTP, essa anotação permite extrair
+         * valores de variáveis de caminho (parte da URL) e usá-los como argumentos do método. */
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(new UserDTO(user));
     }
 
 }
