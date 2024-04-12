@@ -33,6 +33,11 @@ public class UserService {
         return repository.insert(user);
     }
 
+    public void delete(String id) {
+        findById(id);
+        repository.deleteById(id);
+    }
+
     /* Esse método recebe um objeto "UserDTO" como parâmetro e cria um novo objeto "User" com base nas informações
      * fornecidas pelo "UserDTO". Ele serve para converter um objeto "UserDTO" em um objeto "User". */
     public User convertUserDTOToUser(UserDTO userDTO) {
