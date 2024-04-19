@@ -53,6 +53,14 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@RequestBody UserDTO userDTO, @PathVariable String id) {
+        User user = service.convertUserDTOToUser(userDTO);
+        user.setId(id);
+        service.update(user);
+        return ResponseEntity.noContent().build();
+    }
+
 
 
 }
