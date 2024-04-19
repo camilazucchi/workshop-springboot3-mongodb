@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -55,9 +56,17 @@ public class UserService {
         }
     }
 
-    private void updateData(User updatedUser, User user) {
-        updatedUser.setName(user.getName());
-        updatedUser.setEmail(user.getEmail());
+    /* Fiz algumas alterações diferentes do professor.
+     * Quando fiz a requisição PUT no Postman e passei apenas um campo para atualizar, como "name", ao realizar
+     * a requisição GET o campo "name" voltava atualizado, mas o campo "e-mail" retornava null.
+     * A primeira implementação que fiz foi verificar se estava null e se estivesse, manter o valor do campo
+     * anterior, mas utilizei if e foi no método "updateUser".
+     * Uma versão melhor foi tornar responsável por isso o método "updateData" e utilizar o método
+     * "Objects.requireNonNullElse()" da classe "java.util.Objects".
+     * Esse método retorna o primeiro argumento, se não for nulo, caso contrário, retorna o segundo argumento. */
+    private void updateData(User existingUser, User newUser) {
+        existingUser.setName(Objects.requireNonNullElse(newUser.getName(), existingUser.getName()));
+        existingUser.setEmail(Objects.requireNonNullElse(newUser.getEmail(), existingUser.getEmail()));
     }
 
     /* Esse método recebe um objeto "UserDTO" como parâmetro e cria um novo objeto "User" com base nas informações
