@@ -1,5 +1,6 @@
 package com.nelioalves.workshopmongo.controller;
 
+import com.nelioalves.workshopmongo.domain.Post;
 import com.nelioalves.workshopmongo.domain.User;
 import com.nelioalves.workshopmongo.dto.UserDTO;
 import com.nelioalves.workshopmongo.services.UserService;
@@ -61,6 +62,11 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-
+    // Esse método retorna a lista de posts associada ao usuário:
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
+    }
 
 }
