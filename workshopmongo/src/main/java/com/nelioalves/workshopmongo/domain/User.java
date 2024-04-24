@@ -4,9 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -23,6 +26,12 @@ public class User implements Serializable {
     private String id;
     private String name;
     private String email;
+    // Lembrando que List é apenas uma interface e ArrayList é uma interpretação possível de List!
+    @DBRef(lazy = true)
+    /* A anotação "@DBRef" é uma característica específica do Spring Data MongoDB, e é usada para estabelecer uma
+     * referência entre documentos em coleções diferentes dentro do MongoDB. Permite a criação de associações entre
+     * documentos usando referências, ao invés de incorporar documentos diretamente um no outro. */
+    private List<Post> posts = new ArrayList<>();
 
     public User(String id, String name, String email) {
         this.id = id;
